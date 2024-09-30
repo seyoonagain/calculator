@@ -1,6 +1,6 @@
 const dateAndTime = document.getElementById('date-time');
 const time = document.getElementById('time');
-const container = document.querySelector('.container');
+const calculator = document.querySelector('.calculator');
 const calcIcon = document.getElementById('icon');
 const closeButton = document.getElementById('close-button');
 const buttons = document.querySelectorAll('.button');
@@ -13,10 +13,10 @@ let firstOperand, secondOperand, operator, prevOperator, prevOperand;
 let isReadyForNewInput = false;
 
 calcIcon.addEventListener('dblclick', () => {
-  container.style.display = 'block';
+  calculator.style.display = 'block';
 });
 closeButton.addEventListener('click', () => {
-  container.style.display = 'none';
+  calculator.style.display = 'none';
   display.textContent = '0';
   resetOperandsAndOperator();
 });
