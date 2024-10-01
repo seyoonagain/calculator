@@ -32,7 +32,8 @@ button {
 }
 
 button:hover,
-li:hover {
+li:hover,
+#calc-name:hover {
   cursor: url('https://gist.github.com/user-attachments/assets/bbce1b05-a894-44da-a421-7498c240428e'),
     auto;
 }
@@ -195,7 +196,6 @@ main {
   font-size: 21px;
   padding: 1px 5px;
   text-align: center;
-  z-index: 0;
   border: none;
   border-radius: 0;
   background-color: white;
