@@ -159,6 +159,8 @@ function resetOperandsAndOperator() {
   firstOperand = null;
   secondOperand = null;
   operator = null;
+  prevOperand = null;
+  prevOperator = null;
 }
 
 function setOperands() {
