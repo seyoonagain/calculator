@@ -135,7 +135,7 @@ function calculate(x, y, op) {
     case '*':
       return x * y;
     case '/':
-      return y !== 0 ? x / y : 'Error';
+      return y !== 0 ? Math.round((x / y) * 1000000) / 1000000 : 'Error';
     default:
       console.log('🚨 Invalid operator!');
   }
@@ -157,10 +157,10 @@ function limitLengthAndDecimals(strNumber) {
   const roundedOutput =
     strNumber.includes('.') &&
     strNumber[strNumber.length - 1] !== '.' &&
+    strNumber[strNumber.length - 1] !== '0' &&
     strNumber.length <= 8
       ? Math.round(Number(strNumber) * 1000000) / 1000000
       : strNumber;
-
   return roundedOutput.toString().length <= 8 ? roundedOutput : 'Too long!';
 }
 
