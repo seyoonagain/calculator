@@ -156,7 +156,7 @@ function limitLengthAndDecimals(strNumber) {
     strNumber[strNumber.length - 1] !== '.' &&
     strNumber.length > MAX_LENGTH
   ) {
-    const [integerPart, decimalPart] = strNumber.split('.');
+    const integerPart = strNumber.split('.')[0];
     const roomForDecimalDigits = MAX_LENGTH - integerPart.length - 1;
     const factor = Math.pow(10, roomForDecimalDigits);
     integerPart.length > MAX_LENGTH
