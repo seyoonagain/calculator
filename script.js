@@ -153,6 +153,7 @@ function limitLengthAndDecimals(strNumber) {
   let output = strNumber;
 
   if (
+    !strNumber.includes('-') &&
     strNumber.includes('.') &&
     strNumber[strNumber.length - 1] !== '0' &&
     strNumber[strNumber.length - 1] !== '.' &&
