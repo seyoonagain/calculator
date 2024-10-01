@@ -1,5 +1,3 @@
-const dateAndTime = document.getElementById('date-time');
-const time = document.getElementById('time');
 const calculator = document.querySelector('.calculator');
 const calcIcon = document.getElementById('icon');
 const closeButton = document.getElementById('close-button');
@@ -8,7 +6,6 @@ const display = document.getElementById('display');
 const dot = document.getElementById('dot');
 const functions = document.querySelectorAll('.function');
 const operators = document.querySelectorAll('.operator');
-const operatorSymbols = [...operators].map((operator) => operator.textContent);
 let firstOperand, secondOperand, operator, prevOperator, prevOperand;
 let isReadyForNewInput = false;
 
@@ -130,6 +127,9 @@ function calculate(stringX, stringY, op) {
 
 buttons.forEach((button) =>
   button.addEventListener('click', (e) => {
+    const operatorSymbols = [...operators].map(
+      (operator) => operator.textContent
+    );
     operatorSymbols.includes(e.target.textContent) ||
     e.target.textContent === '=' ||
     e.target.textContent === '±' ||
@@ -168,6 +168,7 @@ function setOperands() {
 }
 
 function displayDateAndTime() {
+  const dateAndTime = document.getElementById('date-time');
   const date = new Date();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
@@ -197,6 +198,7 @@ function displayDateAndTime() {
 }
 
 function displayTime() {
+  const time = document.getElementById('time');
   const date = new Date();
   const hour = date.getHours();
   const min = date.getMinutes();
