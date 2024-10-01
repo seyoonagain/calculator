@@ -40,36 +40,32 @@ function handleNumberClick(number) {
     setNumberOnDisplay(getNumberOnDisplay() + number);
   }
   isReadyForNewInput = false;
+  setOperands();
 }
 
 function handleFunctionClick(fn) {
   if (fn === 'C') {
     setNumberOnDisplay('0');
     resetOperandsAndOperatorToNull();
-    return;
-  }
-  if (fn === '±') {
+  } else if (fn === '±') {
     setNumberOnDisplay(-1 * getNumberOnDisplay());
     setOperands();
-    return;
-  }
-  if (fn === '√') {
-    setNumberOnDisplay(Math.sqrt(getNumberOnDisplay()));
+  } else if (fn === '√') {
+    getNumberOnDisplay() < 0
+      ? setNumberOnDisplay('Error')
+      : setNumberOnDisplay(Math.sqrt(getNumberOnDisplay()));
     setOperands();
-    return;
   }
   isReadyForNewInput = true;
 }
 
 function handleOperatorClick(op) {
   if (
-    !calcState.firstOperand ||
     calcState.firstOperand === 'Too long!' ||
     calcState.firstOperand === 'Error'
   )
     calcState.firstOperand = getNumberOnDisplay();
   else if (calcState.firstOperand && calcState.operator) {
-    calcState.secondOperand = getNumberOnDisplay();
     executeCalculation();
   }
   isReadyForNewInput = true;
@@ -89,15 +85,12 @@ function handleEqualClick() {
   if (calcState.firstOperand && calcState.operator) {
     calcState.secondOperand = getNumberOnDisplay();
     executeCalculation();
-    return;
-  }
-  if (
+  } else if (
     calcState.firstOperand &&
     calcState.prevOperand &&
     calcState.prevOperator
   ) {
     executeCalculation(true);
-    return;
   }
   isReadyForNewInput = true;
 }
@@ -154,14 +147,15 @@ function updateCalculationState(result) {
 }
 
 function limitLengthAndDecimals(strNumber) {
-  const roundedOutput =
+  let output = strNumber;
+  if (
     strNumber.includes('.') &&
-    strNumber[strNumber.length - 1] !== '.' &&
     strNumber[strNumber.length - 1] !== '0' &&
-    strNumber.length <= 8
-      ? Math.round(Number(strNumber) * 1000000) / 1000000
-      : strNumber;
-  return roundedOutput.toString().length <= 8 ? roundedOutput : 'Too long!';
+    strNumber[strNumber.length - 1] !== '.'
+  ) {
+    output = Math.round(Number(strNumber) * 1000000) / 1000000;
+  }
+  return output.toString().length <= 8 ? output : 'Too long!';
 }
 
 function resetOperandsAndOperatorToNull() {
