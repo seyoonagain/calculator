@@ -128,7 +128,7 @@ function calculate(x, y, op) {
     case '*':
       return x * y;
     case '/':
-      return y !== 0 ? Math.round((x / y) * 1000000) / 1000000 : 'Error';
+      return y !== 0 ? x / y : 'Error';
     default:
       console.log('🚨 Invalid operator!');
   }
@@ -147,23 +147,33 @@ function updateCalculationState(result) {
 }
 
 function limitLengthAndDecimals(strNumber) {
+  const MAX_LENGTH = 8;
   let output = strNumber;
+
   if (
     strNumber.includes('.') &&
     strNumber[strNumber.length - 1] !== '0' &&
-    strNumber[strNumber.length - 1] !== '.'
+    strNumber[strNumber.length - 1] !== '.' &&
+    strNumber.length > MAX_LENGTH
   ) {
-    output = Math.round(Number(strNumber) * 1000000) / 1000000;
+    const [integerPart, decimalPart] = strNumber.split('.');
+    const roomForDecimalDigits = MAX_LENGTH - integerPart.length - 1;
+    const factor = Math.pow(10, roomForDecimalDigits);
+    integerPart.length > MAX_LENGTH
+      ? (output = strNumber)
+      : (output = Math.round(Number(strNumber) * factor) / factor);
   }
-  return output.toString().length <= 8 ? output : 'Too long!';
+
+  return output.toString().length <= MAX_LENGTH ? output : 'Too long!';
 }
 
 function resetOperandsAndOperatorToNull() {
   calcState = {
-    ...calcState,
     firstOperand: null,
     secondOperand: null,
     operator: null,
+    prevOperand: null,
+    prevOperator: null,
   };
 }
 
