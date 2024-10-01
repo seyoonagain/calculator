@@ -15,6 +15,7 @@ document.querySelectorAll('.button').forEach((button) => {
 
 function handleButtonClick(e) {
   const classList = [...e.target.classList];
+
   if (classList.includes('number')) {
     handleNumberClick(e.target.textContent);
   } else if (classList.includes('function')) {
@@ -137,7 +138,6 @@ function calculate(x, y, op) {
 function updateCalculationState(result) {
   setNumberOnDisplay(result);
   calcState = {
-    ...calcState,
     firstOperand: getNumberOnDisplay(),
     secondOperand: null,
     operator: null,
