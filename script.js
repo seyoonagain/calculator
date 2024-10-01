@@ -9,25 +9,27 @@ let calcState = {
 };
 let isReadyForNewInput = false;
 
-document.querySelectorAll('.button').forEach((button) => {
-  button.addEventListener('click', handleButtonClick);
-});
+function handleButtons() {
+  const buttonMap = {
+    number: handleNumberClick,
+    function: handleFunctionClick,
+    operator: handleOperatorClick,
+    dot: handleDotClick,
+    equal: handleEqualClick,
+  };
 
-function handleButtonClick(e) {
-  const classList = [...e.target.classList];
+  document.querySelectorAll('.button').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const buttonClassName = Array.from(e.target.classList) //
+        .find((className) => Object.keys(buttonMap).includes(className));
 
-  if (classList.includes('number')) {
-    handleNumberClick(e.target.textContent);
-  } else if (classList.includes('function')) {
-    handleFunctionClick(e.target.textContent);
-  } else if (classList.includes('operator')) {
-    handleOperatorClick(e.target.textContent);
-  } else if (classList.includes('dot')) {
-    handleDotClick();
-  } else if (classList.includes('equal')) {
-    handleEqualClick();
-  }
+      buttonClassName === 'dot' || buttonClassName === 'equal'
+        ? buttonMap[buttonClassName]()
+        : buttonMap[buttonClassName](e.target.textContent);
+    });
+  });
 }
+handleButtons();
 
 function handleNumberClick(number) {
   if (
