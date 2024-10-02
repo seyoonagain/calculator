@@ -1,4 +1,5 @@
 const icon = document.getElementById('icon');
+const titleBar = document.getElementById('title-bar');
 const container = document.querySelector('.container');
 const display = document.getElementById('display');
 let calcState = {
@@ -232,9 +233,9 @@ function getDateAndTime() {
 getDateAndTime();
 setInterval(() => getDateAndTime(), 1000);
 
-function enableDragging(el) {
+function enableDragging(grab, el) {
   let offsetX, offsetY;
-  el.addEventListener('mousedown', (e) => {
+  grab.addEventListener('mousedown', (e) => {
     offsetX = e.clientX - el.getBoundingClientRect().left;
     offsetY = e.clientY - el.getBoundingClientRect().top;
     document.addEventListener('mousemove', dragCalculator);
@@ -247,10 +248,12 @@ function enableDragging(el) {
     );
   });
   const dragCalculator = (e) => {
-    el.style.left = `${e.clientX - offsetX}px`;
-    el.style.top = `${e.clientY - offsetY}px`;
+    const left = e.clientX - offsetX;
+    const top = e.clientY - offsetY;
+    el.style.left = `${left}px`;
+    el.style.top = `${top <= 30 ? 31 : top}px`;
   };
 }
 
-enableDragging(container);
-enableDragging(icon);
+enableDragging(titleBar, container);
+enableDragging(icon, icon);
