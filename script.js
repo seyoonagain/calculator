@@ -1,4 +1,5 @@
-const calculator = document.querySelector('.calculator');
+const icon = document.getElementById('icon');
+const container = document.querySelector('.container');
 const display = document.getElementById('display');
 let calcState = {
   firstOperand: null,
@@ -187,11 +188,11 @@ function setOperands() {
 }
 
 document.getElementById('icon').addEventListener('dblclick', () => {
-  calculator.style.display = 'block';
+  container.style.display = 'block';
 });
 
 document.getElementById('close-button').addEventListener('click', () => {
-  calculator.style.display = 'none';
+  container.style.display = 'none';
   setNumberOnDisplay('0');
   resetOperandsAndOperatorToNull();
 });
@@ -230,3 +231,26 @@ function getDateAndTime() {
 
 getDateAndTime();
 setInterval(() => getDateAndTime(), 1000);
+
+function enableDragging(el) {
+  let offsetX, offsetY;
+  el.addEventListener('mousedown', (e) => {
+    offsetX = e.clientX - el.getBoundingClientRect().left;
+    offsetY = e.clientY - el.getBoundingClientRect().top;
+    document.addEventListener('mousemove', dragCalculator);
+    document.addEventListener(
+      'mouseup',
+      () => {
+        document.removeEventListener('mousemove', dragCalculator);
+      },
+      { once: true }
+    );
+  });
+  const dragCalculator = (e) => {
+    el.style.left = `${e.clientX - offsetX}px`;
+    el.style.top = `${e.clientY - offsetY}px`;
+  };
+}
+
+enableDragging(container);
+enableDragging(icon);

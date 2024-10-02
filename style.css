@@ -42,8 +42,14 @@ li:hover,
   display: flex;
 }
 
+.container {
+  position: absolute;
+  width: 247px;
+  height: 407px;
+}
+
 .calculator {
-  display: none;
+  display: block;
   width: 240px;
   height: 400px;
   border: 1.5px solid black;
