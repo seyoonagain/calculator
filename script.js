@@ -190,7 +190,6 @@ function updateCalculationState(result = undefined) {
 
 function limitLengthAndDecimals(strNumber) {
   const MAX_LENGTH = 8;
-  let output = strNumber;
 
   if (
     !strNumber.includes('-') &&
@@ -202,12 +201,18 @@ function limitLengthAndDecimals(strNumber) {
     const integerPart = strNumber.split('.')[0];
     const roomForDecimalDigits = MAX_LENGTH - integerPart.length - 1;
     const factor = Math.pow(10, roomForDecimalDigits);
-    integerPart.length > MAX_LENGTH
-      ? (output = strNumber)
-      : (output = Math.round(Number(strNumber) * factor) / factor);
+    integerPart.length <= MAX_LENGTH &&
+      (strNumber = Math.round(Number(strNumber) * factor) / factor);
   }
 
-  return output.toString().length <= MAX_LENGTH ? output : 'Too long!';
+  try {
+    if (strNumber.toString().length <= MAX_LENGTH) {
+      return strNumber;
+    } else throw new Error('The display can show a maximum of 8 characters.');
+  } catch (error) {
+    showPopupAlert(error.message);
+    return 'Too long!';
+  }
 }
 
 function resetOperandsAndOperatorToNull() {
