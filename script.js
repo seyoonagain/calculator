@@ -22,22 +22,28 @@ function handleButtons() {
   };
 
   buttons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-      const buttonClassName = Array.from(e.target.classList) //
-        .find((className) => Object.keys(buttonMap).includes(className));
-
-      buttonClassName === 'dot' || buttonClassName === 'equal'
-        ? buttonMap[buttonClassName]()
-        : buttonMap[buttonClassName](e.target.textContent);
-    });
+    button.addEventListener('click', (e) => handleButtonClick(e, buttonMap));
   });
 
-  document.addEventListener('keydown', (e) => {
-    buttons.forEach((button) => e.key === button.textContent && button.click());
-    e.key === 'Enter' && buttonMap.equal();
-    e.key === 'Escape' && buttonMap.function('C');
-    e.key === 'Backspace' && deleteLastDigit();
-  });
+  document.addEventListener('keydown', (e) =>
+    handleKeydown(e, buttons, buttonMap)
+  );
+}
+
+function handleButtonClick(e, buttonMap) {
+  const buttonClassName = Array.from(e.target.classList) //
+    .find((className) => Object.keys(buttonMap).includes(className));
+
+  buttonClassName === 'dot' || buttonClassName === 'equal'
+    ? buttonMap[buttonClassName]()
+    : buttonMap[buttonClassName](e.target.textContent);
+}
+
+function handleKeydown(e, buttons, buttonMap) {
+  buttons.forEach((button) => e.key === button.textContent && button.click());
+  e.key === 'Enter' && buttonMap.equal();
+  e.key === 'Escape' && buttonMap.function('C');
+  e.key === 'Backspace' && deleteLastDigit();
 }
 
 function handleNumberClick(number) {
