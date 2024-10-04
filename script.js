@@ -250,8 +250,13 @@ function enableDragging(grab, el) {
   const dragCalculator = (e) => {
     const left = e.clientX - offsetX;
     const top = e.clientY - offsetY;
-    el.style.left = `${left}px`;
-    el.style.top = `${top <= 30 ? 31 : top}px`;
+    const minX = 0;
+    const minY = 31;
+    const maxX = window.innerWidth - el.offsetWidth;
+    const maxY = window.innerHeight - el.offsetHeight;
+
+    el.style.left = `${left < minX ? minX : left > maxX ? maxX : left}px`;
+    el.style.top = `${top < minY ? minY : top > maxY ? maxY : top}px`;
   };
 }
 
