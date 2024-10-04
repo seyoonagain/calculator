@@ -115,9 +115,8 @@ function handleEqualClick() {
 }
 
 function setNumberOnDisplay(number) {
-  display.textContent = number
-    ? limitLengthAndDecimals(number.toString())
-    : 'Error';
+  display.textContent =
+    number !== undefined ? limitLengthAndDecimals(number.toString()) : 'Error';
 }
 
 function getNumberOnDisplay() {
