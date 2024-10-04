@@ -101,7 +101,9 @@ function handleEqualClick() {
 }
 
 function setNumberOnDisplay(number) {
-  display.textContent = limitLengthAndDecimals(number.toString());
+  display.textContent = number
+    ? limitLengthAndDecimals(number.toString())
+    : 'Error';
 }
 
 function getNumberOnDisplay() {
@@ -116,12 +118,17 @@ function executeCalculation(usePrev = false) {
       operator: calcState.prevOperator,
     };
   }
-  const result = calculate(
-    Number(calcState.firstOperand),
-    Number(calcState.secondOperand),
-    calcState.operator
-  );
-  updateCalculationState(result);
+  try {
+    const result = calculate(
+      Number(calcState.firstOperand),
+      Number(calcState.secondOperand),
+      calcState.operator
+    );
+    updateCalculationState(result);
+  } catch (error) {
+    updateCalculationState();
+    showPopupAlert(error);
+  }
 }
 
 function calculate(x, y, op) {
@@ -133,13 +140,14 @@ function calculate(x, y, op) {
     case '*':
       return x * y;
     case '/':
-      return y !== 0 ? x / y : 'Error';
+      if (y === 0) throw new Error('Division by zero is not allowed.');
+      else return x / y;
     default:
       console.log('🚨 Invalid operator!');
   }
 }
 
-function updateCalculationState(result) {
+function updateCalculationState(result = undefined) {
   setNumberOnDisplay(result);
   calcState = {
     firstOperand: getNumberOnDisplay(),
@@ -186,6 +194,31 @@ function setOperands() {
   calcState.operator
     ? (calcState.secondOperand = getNumberOnDisplay())
     : (calcState.firstOperand = getNumberOnDisplay());
+}
+
+function showPopupAlert(error) {
+  const body = document.querySelector('body');
+  const overlay = document.createElement('div');
+  const outerDiv = document.createElement('div');
+  const div = document.createElement('div');
+  const button = document.createElement('button');
+
+  overlay.classList.add('overlay');
+  overlay.classList.add('flex');
+  outerDiv.classList.add('alert-container');
+  outerDiv.classList.add('flex');
+  div.classList.add('alert');
+  div.classList.add('flex');
+  div.textContent = error;
+  button.id = 'ok-button';
+  button.textContent = 'OK';
+  button.onclick = () => overlay.remove();
+
+  div.appendChild(button);
+  outerDiv.appendChild(div);
+  overlay.appendChild(outerDiv);
+  body.appendChild(overlay);
+  makeElementDraggable(outerDiv, outerDiv);
 }
 
 document.getElementById('icon').addEventListener('dblclick', () => {
