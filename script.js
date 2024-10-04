@@ -86,6 +86,7 @@ function handleFunctionClick(fn) {
 }
 
 function handleOperatorClick(op) {
+  if (calcState.firstOperand === null) return;
   if (
     calcState.firstOperand === 'Too long!' ||
     calcState.firstOperand === 'Error'
