@@ -126,6 +126,7 @@ function deleteLastDigit() {
   number.length === 1
     ? setNumberOnDisplay(0)
     : setNumberOnDisplay(number.slice(0, number.length - 1));
+  setOperands();
 }
 
 function setNumberOnDisplay(number) {
