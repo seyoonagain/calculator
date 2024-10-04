@@ -233,7 +233,7 @@ function getDateAndTime() {
 getDateAndTime();
 setInterval(() => getDateAndTime(), 1000);
 
-function enableDragging(grab, el) {
+function makeElementDraggable(grab, el) {
   let offsetX, offsetY;
   grab.addEventListener('mousedown', (e) => {
     offsetX = e.clientX - el.getBoundingClientRect().left;
@@ -260,5 +260,5 @@ function enableDragging(grab, el) {
   };
 }
 
-enableDragging(titleBar, container);
-enableDragging(icon, icon);
+makeElementDraggable(titleBar, container);
+makeElementDraggable(icon, icon);
