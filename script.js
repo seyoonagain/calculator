@@ -56,10 +56,18 @@ function handleFunctionClick(fn) {
     setNumberOnDisplay(-1 * getNumberOnDisplay());
     setOperands();
   } else if (fn === '√') {
-    getNumberOnDisplay() < 0
-      ? setNumberOnDisplay('Error')
-      : setNumberOnDisplay(Math.sqrt(getNumberOnDisplay()));
-    setOperands();
+    try {
+      if (getNumberOnDisplay() < 0) {
+        throw new Error('Cannot take the square root of a negative number.');
+      }
+      setNumberOnDisplay(Math.sqrt(getNumberOnDisplay()));
+    } catch (error) {
+      setNumberOnDisplay();
+      resetOperandsAndOperatorToNull();
+      showPopupAlert(error.message);
+    } finally {
+      setOperands();
+    }
   }
   isReadyForNewInput = true;
 }
@@ -127,7 +135,8 @@ function executeCalculation(usePrev = false) {
     updateCalculationState(result);
   } catch (error) {
     updateCalculationState();
-    showPopupAlert(error);
+    resetOperandsAndOperatorToNull();
+    showPopupAlert(error.message);
   }
 }
 
@@ -201,6 +210,8 @@ function showPopupAlert(error) {
   const overlay = document.createElement('div');
   const outerDiv = document.createElement('div');
   const div = document.createElement('div');
+  const bomb = document.createElement('img');
+  const span = document.createElement('span');
   const button = document.createElement('button');
 
   overlay.classList.add('overlay');
@@ -209,12 +220,14 @@ function showPopupAlert(error) {
   outerDiv.classList.add('flex');
   div.classList.add('alert');
   div.classList.add('flex');
-  div.textContent = error;
+  bomb.src =
+    'https://gist.github.com/user-attachments/assets/e9fbb2f4-7dab-4715-977c-765ed838c0d4';
+  span.textContent = error;
   button.id = 'ok-button';
   button.textContent = 'OK';
   button.onclick = () => overlay.remove();
 
-  div.appendChild(button);
+  div.append(bomb, span, button);
   outerDiv.appendChild(div);
   overlay.appendChild(outerDiv);
   body.appendChild(overlay);

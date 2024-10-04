@@ -274,7 +274,7 @@ li:hover {
 
 .alert-container {
   position: absolute;
-  width: 370px;
+  width: 480px;
   height: 150px;
   justify-content: center;
   align-items: center;
@@ -286,18 +286,25 @@ li:hover {
 .alert {
   font-family: 'Chicago 12.1';
   font-size: 20px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 362px;
+  width: 472px;
   height: 142px;
-  padding: 15px 0;
+  padding: 20px 15px 15px 30px;
   border: 2.3px solid black;
+  gap: 15px;
+}
+
+.alert > img {
+  width: 32px;
+  height: 32px;
+  gap: 15px;
 }
 
 #ok-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
   font-family: 'Chicago 12.1';
-  font-size: 20px;
+  font-size: 18px;
   padding: 3px 20px;
   background-color: white;
   border: 1.5px solid black;
