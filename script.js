@@ -36,6 +36,7 @@ function handleButtons() {
     buttons.forEach((button) => e.key === button.textContent && button.click());
     e.key === 'Enter' && buttonMap.equal();
     e.key === 'Escape' && buttonMap.function('C');
+    e.key === 'Backspace' && deleteLastDigit();
   });
 }
 
@@ -112,6 +113,13 @@ function handleEqualClick() {
     executeCalculation(true);
   }
   isReadyForNewInput = true;
+}
+
+function deleteLastDigit() {
+  const number = getNumberOnDisplay();
+  number.length === 1
+    ? setNumberOnDisplay(0)
+    : setNumberOnDisplay(number.slice(0, number.length - 1));
 }
 
 function setNumberOnDisplay(number) {
