@@ -12,6 +12,7 @@ let calcState = {
 let isReadyForNewInput = false;
 
 function handleButtons() {
+  const buttons = document.querySelectorAll('.button');
   const buttonMap = {
     number: handleNumberClick,
     function: handleFunctionClick,
@@ -20,7 +21,7 @@ function handleButtons() {
     equal: handleEqualClick,
   };
 
-  document.querySelectorAll('.button').forEach((button) => {
+  buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
       const buttonClassName = Array.from(e.target.classList) //
         .find((className) => Object.keys(buttonMap).includes(className));
@@ -30,8 +31,13 @@ function handleButtons() {
         : buttonMap[buttonClassName](e.target.textContent);
     });
   });
+
+  document.addEventListener('keydown', (e) => {
+    buttons.forEach((button) => e.key === button.textContent && button.click());
+    e.key === 'Enter' && buttonMap.equal();
+    e.key === 'Escape' && buttonMap.function('C');
+  });
 }
-handleButtons();
 
 function handleNumberClick(number) {
   if (
@@ -236,6 +242,7 @@ function showPopupAlert(error) {
 
 document.getElementById('icon').addEventListener('dblclick', () => {
   container.style.display = 'block';
+  handleButtons();
 });
 
 document.getElementById('close-button').addEventListener('click', () => {
