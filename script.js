@@ -324,7 +324,7 @@ function makeElementDraggable(grab, el) {
     const left = e.clientX - offsetX;
     const top = e.clientY - offsetY;
     const minX = 0;
-    const minY = 31;
+    const minY = 30;
     const maxX = window.innerWidth - el.offsetWidth;
     const maxY = window.innerHeight - el.offsetHeight;
 
