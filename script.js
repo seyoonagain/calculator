@@ -256,11 +256,11 @@ function showPopupAlert(error) {
   button.textContent = 'OK';
   button.onclick = () => overlay.remove();
 
-  div.append(bomb, span, button);
-  outerDiv.appendChild(div);
+  div.append(bomb, span);
+  outerDiv.append(div, button);
   overlay.appendChild(outerDiv);
   body.appendChild(overlay);
-  makeElementDraggable(outerDiv, outerDiv);
+  makeElementDraggable(div, outerDiv);
 }
 
 document.getElementById('icon').addEventListener('dblclick', () => {
