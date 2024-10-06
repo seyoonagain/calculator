@@ -11,6 +11,7 @@ let calcState = {
 };
 let isReadyForNewInput = false;
 
+handleButtons();
 function handleButtons() {
   const buttons = document.querySelectorAll('.button');
   const buttonMap = {
@@ -262,7 +263,6 @@ function showPopupAlert(error) {
 
 document.getElementById('icon').addEventListener('dblclick', () => {
   container.style.display = 'block';
-  handleButtons();
 });
 
 document.getElementById('close-button').addEventListener('click', () => {
