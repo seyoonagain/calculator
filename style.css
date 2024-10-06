@@ -13,7 +13,7 @@
 html,
 body {
   height: 100%;
-  cursor: url('https://gist.github.com/user-attachments/assets/17898fe6-08f7-45ea-a3c7-afd1ca986eea'),
+  cursor: url('https://gist.github.com/user-attachments/assets/fb1db2b3-1799-4001-b2df-b83f52577c8e'),
     auto;
 }
 
@@ -21,7 +21,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(241, 240, 176);
+  background-color: rgb(150, 150, 150);
+  background-image: radial-gradient(circle, #000000 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
 }
 
 button {
@@ -31,7 +33,7 @@ button {
 button:hover,
 li:hover,
 #calc-name:hover {
-  cursor: url('https://gist.github.com/user-attachments/assets/bbce1b05-a894-44da-a421-7498c240428e'),
+  cursor: url('https://gist.github.com/user-attachments/assets/75d84b70-ab73-4a1e-8da6-6c1b810c2ce4'),
     auto;
 }
 
@@ -99,8 +101,10 @@ main {
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
-  background-image: radial-gradient(circle, #000000 1px, transparent 1px);
-  background-size: 3px 3px;
+  background-image: radial-gradient(circle, #000000 1px, transparent 1px),
+    radial-gradient(circle, #000000 1px, transparent 1px);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
 }
 
 .display {
@@ -163,8 +167,11 @@ main {
   width: 60px;
   height: 60px;
   background-color: rgb(240, 240, 240);
-  background-image: radial-gradient(circle, #000000 1px, transparent 1px);
-  background-size: 3px 3px;
+  background-color: white;
+  background-image: radial-gradient(circle, #000000 1px, transparent 1px),
+    radial-gradient(circle, #000000 1px, transparent 1px);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
   border-radius: 10px;
   border: 1px solid black;
   box-shadow: 3px 3px 0 black;
