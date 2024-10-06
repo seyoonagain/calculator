@@ -285,7 +285,7 @@ li:hover {
   height: 150px;
   justify-content: center;
   align-items: center;
-  border: 1.5px solid black;
+  border: 1px solid black;
   background-color: white;
   z-index: 1000;
 }
@@ -296,7 +296,7 @@ li:hover {
   width: 472px;
   height: 142px;
   padding: 20px 15px 15px 30px;
-  border: 2.3px solid black;
+  border: 2.5px solid black;
   gap: 15px;
 }
 
