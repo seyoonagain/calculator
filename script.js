@@ -67,9 +67,11 @@ function handleFunctionClick(fn) {
     setNumberOnDisplay('0');
     resetOperandsAndOperatorToNull();
   } else if (fn === '±') {
+    if (typeof +getNumberOnDisplay() !== number) return;
     setNumberOnDisplay(-1 * getNumberOnDisplay());
     setOperands();
   } else if (fn === '√') {
+    if (typeof +getNumberOnDisplay() !== number) return;
     try {
       if (getNumberOnDisplay() < 0) {
         throw new Error('Cannot take the square root of a negative number.');
