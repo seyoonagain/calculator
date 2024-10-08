@@ -245,28 +245,6 @@ li:hover {
   color: white;
 }
 
-#icon::after {
-  content: attr(name);
-  font-family: 'Monaco 9';
-  font-size: 20px;
-  position: absolute;
-  top: 30px;
-  transform: translateY(-50%);
-  left: 90px;
-  padding: 0 5px;
-  background-color: white;
-  border: 1px solid black;
-  text-align: center;
-  text-wrap: nowrap;
-  transition: opacity;
-  opacity: 0%;
-}
-
-#icon:hover::after {
-  transition-delay: 1000ms;
-  opacity: 100%;
-}
-
 .overlay {
   position: fixed;
   top: 0;
