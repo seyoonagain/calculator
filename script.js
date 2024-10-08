@@ -50,8 +50,7 @@ function handleKeydown(e, buttons, buttonMap) {
 function handleNumberClick(number) {
   if (
     getNumberOnDisplay() === '0' ||
-    getNumberOnDisplay() === 'Too long!' ||
-    getNumberOnDisplay() === 'Error' ||
+    checkErrorMessage() ||
     isReadyForNewInput
   ) {
     setNumberOnDisplay(number[0]);
@@ -67,11 +66,11 @@ function handleFunctionClick(fn) {
     setNumberOnDisplay('0');
     resetOperandsAndOperatorToNull();
   } else if (fn === '±') {
-    if (typeof +getNumberOnDisplay() !== number) return;
+    if (checkErrorMessage()) return;
     setNumberOnDisplay(-1 * getNumberOnDisplay());
     setOperands();
   } else if (fn === '√') {
-    if (typeof +getNumberOnDisplay() !== number) return;
+    if (checkErrorMessage()) return;
     try {
       if (getNumberOnDisplay() < 0) {
         throw new Error('Cannot take the square root of a negative number.');
@@ -140,6 +139,12 @@ function setNumberOnDisplay(number) {
 
 function getNumberOnDisplay() {
   return display.textContent;
+}
+
+function checkErrorMessage() {
+  return (
+    getNumberOnDisplay() === 'Too long!' || getNumberOnDisplay() === 'Error'
+  );
 }
 
 function executeCalculation(usePrev = false) {
